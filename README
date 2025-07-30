@@ -1,0 +1,9 @@
+READ ME
+
+This is the client-side half of the myFlix app, which will display information about movies to users directed from the movie_API.
+This will be an online-hosted, single-page, responsive app with several views and a polished user experience.
+
+Dependencies:
+  node
+  npm
+  parcel

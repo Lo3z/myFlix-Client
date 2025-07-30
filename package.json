@@ -14,5 +14,12 @@
     "url": "https://github.com/Lo3z/myFlix-Client/issues"
   },
   "homepage": "https://github.com/Lo3z/myFlix-Client#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.15.4"
+  }
 }
