@@ -18439,7 +18439,7 @@ const MainView = ()=>{
                 return {
                     id: doc._id,
                     title: doc.Name,
-                    image: "",
+                    image: doc.ImagePath,
                     genre: doc.Genre?.Name,
                     director: doc.Director?.Name,
                     description: doc.Description
