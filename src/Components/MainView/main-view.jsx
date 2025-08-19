@@ -10,14 +10,14 @@ export const MainView = () => {
     fetch ("https://moviefy-288671c73ad6.herokuapp.com/movies")
     .then((response) => response.json())
     .then ((data) => {
-      const moviesFromApi = data.docs.map((doc) => {
+      const moviesFromApi = data.map((doc) => {
         return {
-          id: doc.id,
-          title: doc.title,
+          id: doc._id,
+          title: doc.Name,
           image: "",
-          genre: doc.genre,
-          director: doc.director,
-          description: doc.description
+          genre: doc.Genre?.Name,
+          director: doc.Director?.Name,
+          description: doc.Description
         };
       });
 
