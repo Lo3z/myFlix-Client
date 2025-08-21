@@ -12,7 +12,7 @@ export const LoginView = ({ onLoggedIn }) => {
       Password: password,
     };
 
-    fetch("https://moviefy-288671c73ad6.herokuapp.com/users", {
+    fetch("https://moviefy-288671c73ad6.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -23,11 +23,11 @@ export const LoginView = ({ onLoggedIn }) => {
       .then ((data) => {
         console.log("Login response: ", data);
         if (data.user) {
+          onLoggedIn(data.user, data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          onLoggedIn(data.user, data.token);
         } else {
-          alert("No such user");
+          alert("Invalid Username or Password");
         }
       })
       .catch((e) => {

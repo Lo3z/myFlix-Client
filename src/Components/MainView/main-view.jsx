@@ -8,10 +8,10 @@ import PropTypes from "prop-types";
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(storedUser? storedUser:null);
+  const [token, setToken] = useState(storedToken? storedToken:null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
 
   useEffect(() => {
     if (!token){
@@ -19,7 +19,7 @@ export const MainView = () => {
     }
 
     fetch ("https://moviefy-288671c73ad6.herokuapp.com/movies", {
-      headers: {Authorization: 'Bearer ${token}' }
+      headers: {Authorization: `Bearer ${token}` }
     })
     .then((response) => response.json())
     .then ((data) => {
@@ -41,7 +41,7 @@ export const MainView = () => {
     return (
       <>
         <LoginView 
-          onLoggedin={(user, token) => {
+          onLoggedIn={(user, token) => {
             setUser(user);
             setToken(token);
           }}

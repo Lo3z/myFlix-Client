@@ -18436,15 +18436,15 @@ const MainView = ()=>{
     _s();
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
+    const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
+    const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
-    const [user, setUser] = (0, _react.useState)(null);
-    const [token, setToken] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
         if (!token) return;
         fetch("https://moviefy-288671c73ad6.herokuapp.com/movies", {
             headers: {
-                Authorization: 'Bearer ${token}'
+                Authorization: `Bearer ${token}`
             }
         }).then((response)=>response.json()).then((data)=>{
             const moviesFromApi = data.map((doc)=>{
@@ -18465,7 +18465,7 @@ const MainView = ()=>{
     if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                onLoggedin: (user, token)=>{
+                onLoggedIn: (user, token)=>{
                     setUser(user);
                     setToken(token);
                 }
@@ -18528,7 +18528,7 @@ const MainView = ()=>{
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "ld1mNqbzEgxPu9ZfASjBJ7ZrUMw=");
+_s(MainView, "R4YJy7IHiq+OfQI83zSgHH/+lYo=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -19496,7 +19496,7 @@ const LoginView = ({ onLoggedIn })=>{
             Username: username,
             Password: password
         };
-        fetch("https://moviefy-288671c73ad6.herokuapp.com/users", {
+        fetch("https://moviefy-288671c73ad6.herokuapp.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -19505,10 +19505,10 @@ const LoginView = ({ onLoggedIn })=>{
         }).then((response)=>response.json()).then((data)=>{
             console.log("Login response: ", data);
             if (data.user) {
+                onLoggedIn(data.user, data.token);
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", data.token);
-                onLoggedIn(data.user, data.token);
-            } else alert("No such user");
+            } else alert("Invalid Username or Password");
         }).catch((e)=>{
             alert("Something went wrong");
         });
