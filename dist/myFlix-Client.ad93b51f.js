@@ -18477,28 +18477,34 @@ const MainView = ()=>{
     }, [
         token
     ]);
+    const handleLogin = (loggedInUser, loggedInToken)=>{
+        setUser(loggedInUser);
+        setToken(loggedInToken);
+        localStorage.setItem("user", JSON.stringify(loggedInUser));
+        localStorage.setItem("token", loggedInToken);
+    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
         className: "justify-content-md-center",
         children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
             md: 5,
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                    onLoggedIn: (user)=>setUser(user)
+                    onLoggedIn: handleLogin
                 }, void 0, false, {
                     fileName: "src/Components/MainView/main-view.jsx",
-                    lineNumber: 47,
+                    lineNumber: 54,
                     columnNumber: 11
                 }, undefined),
                 "or",
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                     fileName: "src/Components/MainView/main-view.jsx",
-                    lineNumber: 49,
+                    lineNumber: 56,
                     columnNumber: 11
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/Components/MainView/main-view.jsx",
-            lineNumber: 46,
+            lineNumber: 53,
             columnNumber: 9
         }, undefined) : selectedMovie ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
             md: 8,
@@ -18513,18 +18519,18 @@ const MainView = ()=>{
                 onBackClick: ()=>setSelectedMovie(null)
             }, void 0, false, {
                 fileName: "src/Components/MainView/main-view.jsx",
-                lineNumber: 53,
+                lineNumber: 60,
                 columnNumber: 11
             }, undefined)
         }, void 0, false, {
             fileName: "src/Components/MainView/main-view.jsx",
-            lineNumber: 52,
+            lineNumber: 59,
             columnNumber: 9
         }, undefined) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             children: "The list is empty!"
         }, void 0, false, {
             fileName: "src/Components/MainView/main-view.jsx",
-            lineNumber: 60,
+            lineNumber: 67,
             columnNumber: 9
         }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
             children: [
@@ -18538,12 +18544,12 @@ const MainView = ()=>{
                             }
                         }, void 0, false, {
                             fileName: "src/Components/MainView/main-view.jsx",
-                            lineNumber: 65,
+                            lineNumber: 72,
                             columnNumber: 15
                         }, undefined)
                     }, movie.id, false, {
                         fileName: "src/Components/MainView/main-view.jsx",
-                        lineNumber: 64,
+                        lineNumber: 71,
                         columnNumber: 13
                     }, undefined)),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
@@ -18558,19 +18564,19 @@ const MainView = ()=>{
                         children: "Logout"
                     }, void 0, false, {
                         fileName: "src/Components/MainView/main-view.jsx",
-                        lineNumber: 74,
+                        lineNumber: 81,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/Components/MainView/main-view.jsx",
-                    lineNumber: 73,
+                    lineNumber: 80,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true)
     }, void 0, false, {
         fileName: "src/Components/MainView/main-view.jsx",
-        lineNumber: 44,
+        lineNumber: 51,
         columnNumber: 5
     }, undefined);
 };

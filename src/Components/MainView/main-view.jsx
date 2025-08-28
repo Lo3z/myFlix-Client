@@ -40,11 +40,18 @@ export const MainView = () => {
     });
   }, [token]);
 
+  const handleLogin = (loggedInUser, loggedInToken) => {
+    setUser(loggedInUser);
+    setToken(loggedInToken);
+    localStorage.setItem("user", JSON.stringify(loggedInUser));
+    localStorage.setItem("token", loggedInToken);
+  };
+
   return (
     <Row className="justify-content-md-center">
       {!user ? (
         <Col md={5}>
-          <LoginView onLoggedIn={(user) => setUser(user)}/>
+          <LoginView onLoggedIn={handleLogin}/>
           or
           <SignupView/>
         </Col>
