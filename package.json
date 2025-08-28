@@ -16,9 +16,11 @@
   "homepage": "https://github.com/Lo3z/myFlix-Client#readme",
   "description": "",
   "dependencies": {
+    "bootstrap": "5.2.0",
     "prop-types": "^15.8.1",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-bootstrap": "2.5.0"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.15.4"
