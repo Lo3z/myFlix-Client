@@ -1,16 +1,55 @@
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
 
-export const MovieCard =({movie, onMovieClick}) => {
+export const MovieCard =({movie, user, setUser, token}) => {
+  const isFavorite = user?.Favorites?.includes(movie.id);
+  const url = `https://moviefy-288671c73ad6.herokuapp.com/users/${user.Username}/movies/${movie.id}`;
+  const method = isFavorite? "DELETE" : "POST";
+
+  const toggleFavorite = async() => {
+    if (!user || !token ||!movie.id) {
+      console.warn("Missing user, token, or movie ID");
+      return;
+    }
+
+    try{
+      const response = await fetch(url, {
+        method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text || "Failed to update favorites");
+      }
+      const updatedUser = await response.json();
+      setUser(updatedUser);
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+    } catch (err) {
+      console.error("Favorite error:", err);
+      alert("Could not update favorites");
+    }
+  };
+
   return (
     <Card className="h-100">
       <Card.Img variant="top" src={movie.image} />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.director}</Card.Text>
-        <Button onClick={() => onMovieClick(movie)} variant="link">
-          Open
+        <Link to ={`/movies/${movie.id}`}>
+          <Button variant="link">Open</Button>
+        </Link>
+        <Button
+          variant={isFavorite ? "danger" : "success"}
+          onClick={toggleFavorite}
+          className="ms-2"
+        >
+          {isFavorite ? "Remove Favorite" : "Add Favorite"}
         </Button>
       </Card.Body>
     </Card>
