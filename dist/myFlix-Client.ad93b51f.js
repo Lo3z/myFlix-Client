@@ -680,6 +680,7 @@ var _client = require("react-dom/client");
 var _mainView = require("./Components/MainView/main-view");
 var _container = require("react-bootstrap/Container");
 var _containerDefault = parcelHelpers.interopDefault(_container);
+var _react = require("react");
 // Import statement to indicate './index.scss' will be bundled
 var _indexScss = require("./index.scss");
 // Main component (will eventually use all the others)
@@ -687,12 +688,12 @@ const MyFlixApplication = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _containerDefault.default), {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
             fileName: "src/index.jsx",
-            lineNumber: 12,
+            lineNumber: 14,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/index.jsx",
-        lineNumber: 11,
+        lineNumber: 13,
         columnNumber: 5
     }, undefined);
 };
@@ -703,7 +704,7 @@ const root = (0, _client.createRoot)(container);
 //Tells React to render app in root DOM element
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MyFlixApplication, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 22,
+    lineNumber: 24,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -714,7 +715,7 @@ $RefreshReg$(_c, "MyFlixApplication");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react-dom/client":"hrvwu","./Components/MainView/main-view":"g1R9h","react-bootstrap/Container":"2GCvr","./index.scss":"lJZlQ","@parcel/transformer-js/src/esmodule-helpers.js":"4Rm1p","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"aP3Jd"}],"dVPUn":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react-dom/client":"hrvwu","./Components/MainView/main-view":"g1R9h","react-bootstrap/Container":"2GCvr","./index.scss":"lJZlQ","@parcel/transformer-js/src/esmodule-helpers.js":"4Rm1p","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"aP3Jd","react":"jMk1U"}],"dVPUn":[function(require,module,exports,__globalThis) {
 'use strict';
 module.exports = require("ee51401569654d91");
 
@@ -16142,7 +16143,7 @@ var _reactRouterDom = require("react-router-dom");
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _s = $RefreshSig$();
-const MainView = ()=>{
+const MainView = ({ user, setUser, token, setToken })=>{
     _s();
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
@@ -16170,7 +16171,8 @@ const MainView = ()=>{
             setMovies(moviesFromApi);
         });
     }, [
-        token
+        token,
+        user
     ]);
     const handleLogin = (loggedInUser, loggedInToken)=>{
         setUser(loggedInUser);
@@ -16397,20 +16399,22 @@ parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _react = require("react");
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _card = require("react-bootstrap/Card");
 var _cardDefault = parcelHelpers.interopDefault(_card);
 var _reactRouterDom = require("react-router-dom");
 const MovieCard = ({ movie, user, setUser, token })=>{
-    const isFavorite = user?.Favorites?.includes(movie.id);
-    const url = `https://moviefy-288671c73ad6.herokuapp.com/users/${user.Username}/movies/${movie.id}`;
-    const method = isFavorite ? "DELETE" : "POST";
+    const movieId = movie._id || movie.id;
+    const isFavorite = user?.Favorites?.includes(movieId);
     const toggleFavorite = async ()=>{
         if (!user || !token || !movie.id) {
             console.warn("Missing user, token, or movie ID");
             return;
         }
+        const url = `https://moviefy-288671c73ad6.herokuapp.com/users/${user.Username}/movies/${movieId}`;
+        const method = isFavorite ? "DELETE" : "POST";
         try {
             const response = await fetch(url, {
                 method,
@@ -16423,7 +16427,9 @@ const MovieCard = ({ movie, user, setUser, token })=>{
                 throw new Error(text || "Failed to update favorites");
             }
             const updatedUser = await response.json();
-            setUser(updatedUser);
+            setUser({
+                ...updatedUser
+            });
             localStorage.setItem("user", JSON.stringify(updatedUser));
         } catch (err) {
             console.error("Favorite error:", err);
@@ -16438,7 +16444,7 @@ const MovieCard = ({ movie, user, setUser, token })=>{
                 src: movie.image
             }, void 0, false, {
                 fileName: "src/Components/MovieCard/movie-card.jsx",
-                lineNumber: 40,
+                lineNumber: 45,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default).Body, {
@@ -16447,29 +16453,29 @@ const MovieCard = ({ movie, user, setUser, token })=>{
                         children: movie.title
                     }, void 0, false, {
                         fileName: "src/Components/MovieCard/movie-card.jsx",
-                        lineNumber: 42,
+                        lineNumber: 47,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cardDefault.default).Text, {
                         children: movie.director
                     }, void 0, false, {
                         fileName: "src/Components/MovieCard/movie-card.jsx",
-                        lineNumber: 43,
+                        lineNumber: 48,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                        to: `/movies/${movie.id}`,
+                        to: `/movies/${movieId}`,
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
                             variant: "link",
                             children: "Open"
                         }, void 0, false, {
                             fileName: "src/Components/MovieCard/movie-card.jsx",
-                            lineNumber: 45,
+                            lineNumber: 50,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/Components/MovieCard/movie-card.jsx",
-                        lineNumber: 44,
+                        lineNumber: 49,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -16479,25 +16485,26 @@ const MovieCard = ({ movie, user, setUser, token })=>{
                         children: isFavorite ? "Remove Favorite" : "Add Favorite"
                     }, void 0, false, {
                         fileName: "src/Components/MovieCard/movie-card.jsx",
-                        lineNumber: 47,
+                        lineNumber: 52,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/Components/MovieCard/movie-card.jsx",
-                lineNumber: 41,
+                lineNumber: 46,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/Components/MovieCard/movie-card.jsx",
-        lineNumber: 39,
+        lineNumber: 44,
         columnNumber: 5
     }, undefined);
 };
 _c = MovieCard;
 MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
+        id: (0, _propTypesDefault.default).string,
         title: (0, _propTypesDefault.default).string.isRequired,
         image: (0, _propTypesDefault.default).string,
         genre: (0, _propTypesDefault.default).string.isRequired,
@@ -16514,7 +16521,7 @@ $RefreshReg$(_c, "MovieCard");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","prop-types":"GNqOQ","react-bootstrap/Button":"kNKIo","react-bootstrap/Card":"56ajS","react-router-dom":"fKeYf","@parcel/transformer-js/src/esmodule-helpers.js":"4Rm1p","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"aP3Jd"}],"GNqOQ":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","prop-types":"GNqOQ","react-bootstrap/Button":"kNKIo","react-bootstrap/Card":"56ajS","react-router-dom":"fKeYf","@parcel/transformer-js/src/esmodule-helpers.js":"4Rm1p","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"aP3Jd","react":"jMk1U"}],"GNqOQ":[function(require,module,exports,__globalThis) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -34557,4 +34564,4 @@ $RefreshReg$(_c, "ProfileView");
 }
 },{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-bootstrap":"ctEhb","react-router-dom":"fKeYf","../MovieCard/movie-card.jsx":"3Wcgr","@parcel/transformer-js/src/esmodule-helpers.js":"4Rm1p","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"aP3Jd"}],"lJZlQ":[function() {},{}]},["lzRk0","gYcKb"], "gYcKb", "parcelRequireaec4", {}, null, null, "http://localhost:1234")
 
-//# sourceMappingURL=myFlix-Client.ad93b51f.js.map
+//# sourceMappingURL=myFlix-client.ad93b51f.js.map

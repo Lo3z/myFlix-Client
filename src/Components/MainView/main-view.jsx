@@ -11,7 +11,7 @@ import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-export const MainView = () => {
+export const MainView = ({user, setUser, token, setToken }) => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(storedUser? storedUser:null);
@@ -41,7 +41,7 @@ export const MainView = () => {
       });
       setMovies(moviesFromApi);
     });
-  }, [token]);
+  }, [token, user]);
 
   const handleLogin = (loggedInUser, loggedInToken) => {
     setUser(loggedInUser);
