@@ -680,7 +680,6 @@ var _client = require("react-dom/client");
 var _mainView = require("./Components/MainView/main-view");
 var _container = require("react-bootstrap/Container");
 var _containerDefault = parcelHelpers.interopDefault(_container);
-var _react = require("react");
 // Import statement to indicate './index.scss' will be bundled
 var _indexScss = require("./index.scss");
 // Main component (will eventually use all the others)
@@ -688,12 +687,12 @@ const MyFlixApplication = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _containerDefault.default), {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
             fileName: "src/index.jsx",
-            lineNumber: 14,
+            lineNumber: 13,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/index.jsx",
-        lineNumber: 13,
+        lineNumber: 12,
         columnNumber: 5
     }, undefined);
 };
@@ -704,7 +703,7 @@ const root = (0, _client.createRoot)(container);
 //Tells React to render app in root DOM element
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MyFlixApplication, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 24,
+    lineNumber: 23,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -715,7 +714,7 @@ $RefreshReg$(_c, "MyFlixApplication");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react-dom/client":"hrvwu","./Components/MainView/main-view":"g1R9h","react-bootstrap/Container":"2GCvr","./index.scss":"lJZlQ","@parcel/transformer-js/src/esmodule-helpers.js":"4Rm1p","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"aP3Jd","react":"jMk1U"}],"dVPUn":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react-dom/client":"hrvwu","./Components/MainView/main-view":"g1R9h","react-bootstrap/Container":"2GCvr","./index.scss":"lJZlQ","@parcel/transformer-js/src/esmodule-helpers.js":"4Rm1p","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"aP3Jd"}],"dVPUn":[function(require,module,exports,__globalThis) {
 'use strict';
 module.exports = require("ee51401569654d91");
 
@@ -16143,7 +16142,7 @@ var _reactRouterDom = require("react-router-dom");
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _s = $RefreshSig$();
-const MainView = ({ user, setUser, token, setToken })=>{
+const MainView = ()=>{
     _s();
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
