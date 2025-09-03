@@ -8,6 +8,7 @@ import { NavigationBar } from "../NavigationBar/navigation-bar";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import PropTypes from "prop-types";
 
@@ -17,6 +18,7 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser? storedUser:null);
   const [token, setToken] = useState(storedToken? storedToken:null);
   const [movies, setMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export const MainView = () => {
         console.log(doc);
         return {
           id: doc._id,
-          title: doc.Name,
+          title: doc.Name || doc.Title,
           image: doc.ImagePath,
           genre: doc.Genre?.Name,
           director: doc.Director?.Name,
@@ -42,7 +44,7 @@ export const MainView = () => {
       });
       setMovies(moviesFromApi);
     });
-  }, [token, user]);
+  }, [token]);
 
   const handleLogin = (loggedInUser, loggedInToken) => {
     setUser(loggedInUser);
@@ -50,6 +52,10 @@ export const MainView = () => {
     localStorage.setItem("user", JSON.stringify(loggedInUser));
     localStorage.setItem("token", loggedInToken);
   };
+
+  const filteredMovies = movies.filter((movie) => 
+    (movie.title || "").toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <BrowserRouter>
@@ -129,11 +135,30 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
-                      <Col className="mb-4" key={movie.id} md={3}>
-                        <MovieCard movie={movie} user={user} key={movie.id} setUser={setUser} token={token}/>
+                    <Row className="justify-content-center mb-4">
+                      <Col xs ={12} md={6} className="text-center">
+                        <Form>
+                          <Form.Control
+                            type="text"
+                            placeholder="Search for a movie!"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                          />
+                        </Form>
                       </Col>
-                    ))}
+                    </Row>
+
+                    <Row className="justify-content-start">
+                      {filteredMovies.length === 0 ? (
+                        <Col>No movies found.</Col>
+                      ) : (
+                        filteredMovies.map((movie) => (
+                          <Col className="mb-4" key={movie.id} md={3}>
+                            <MovieCard movie={movie} user={user} setUser={setUser} token={token}/>
+                          </Col>
+                        ))
+                      )}
+                    </Row>
                   </>
                 )}
               </>
