@@ -8,7 +8,7 @@ import { NavigationBar } from "../NavigationBar/navigation-bar";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import PropTypes from "prop-types";
 
 export const MainView = () => {
@@ -30,6 +30,7 @@ export const MainView = () => {
     .then((response) => response.json())
     .then ((data) => {
       const moviesFromApi = data.map((doc) => {
+        console.log(doc);
         return {
           id: doc._id,
           title: doc.Name,

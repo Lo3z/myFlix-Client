@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Form, Button} from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { MovieCard } from "../MovieCard/movie-card.jsx";
 
-export const ProfileView = ({movies}) => {
-  const [user, setUser] = useState(null);
+export const ProfileView = ({movies, user, setUser}) => {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
@@ -99,7 +98,7 @@ export const ProfileView = ({movies}) => {
       }
       else{
         const updatedUser = await response.json();
-        setUser(updatedUser);
+        setUser({...updatedUser});
         setSuccess(true);
         alert("Profile updated Successfully!");
         localStorage.setItem("user", JSON.stringify(updatedUser));
@@ -211,7 +210,7 @@ export const ProfileView = ({movies}) => {
                   user={user}
                   setUser={setUser}
                   token={token}
-                  />
+                />
               </Col>
             ))}
           </Row>

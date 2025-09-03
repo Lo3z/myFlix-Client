@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 export const MovieCard =({movie, user, setUser, token}) => {
   const movieId = movie._id || movie.id;
-  const isFavorite = user?.Favorites?.includes(movieId);
+  const isFavorite = user.Favorites?.includes(movie.id);
   
 
   const toggleFavorite = async() => {
@@ -32,8 +32,9 @@ export const MovieCard =({movie, user, setUser, token}) => {
       }
 
       const updatedUser = await response.json();
-      setUser({...updatedUser});
+      setUser({ ...updatedUser });
       localStorage.setItem("user", JSON.stringify(updatedUser));
+      console.log(updatedUser)
     } catch (err) {
       console.error("Favorite error:", err);
       alert("Could not update favorites");
